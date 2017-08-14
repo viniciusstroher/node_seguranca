@@ -16,7 +16,7 @@ int eepromMax=250;
 void setup() {
   EEPROM.begin(512);
   Serial.begin(115200);
-  delay(10);
+  /*delay(10);
   //CLEAR
   for (int i = 0 ; i < eepromMax ; i++) {
     EEPROM.write(i, 0);
@@ -36,7 +36,7 @@ void setup() {
   
   
   
-  //READ
+  //READ*/
   Serial.println("EEPROM");
   for (int i3 = 0; i3 < eepromMax; ++i3)
   {
