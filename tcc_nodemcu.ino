@@ -9,70 +9,71 @@ const int porta      = 80;
 WiFiServer server(porta);
 
 // INICIA struct e metodos do outro sketch util
-// Configuraçao para EEprom
-struct Configuration {
-  //IN - sensores
-  int pin1;
-  int pin2;
-  int pin3;
-  int pin4;
-  
-  //OUT - BUZZER
-  int pin5;
-  
-  //CONTROLADOR
-  char* ssid_wifi_controlador;
-  char* senha_wifi_controlador;
-  char* senha_controlador;
-  char* porta_controlador;
-  char* ip_controlador;
-  
-  //API - APP - SMARTPHONE
-  char* ip_server;
-  char* porta_server;
-  char* senha;
-  
-} configuration;
 
 // MODO DE OPERACAO DO CONTROLADOR
 bool modoConfiguracao = false;
+int eepromMax=250;
 void setup() {
+  EEPROM.begin(512);
   Serial.begin(115200);
   delay(10);
+  //CLEAR
+  for (int i = 0 ; i < eepromMax ; i++) {
+    EEPROM.write(i, 0);
+  }
   
-  uint8_t codeRunningForTheFirstTime = EEPROM_readAnything(0, configuration); // le da eeprom a estrutura de dados
+  
+  
+  //SSID_WIFI#SENHA_WIFI#PORTA_ADMIN#SENHA_ADMIN#PIN1#PIN2
+  String configStringEEPROM = "Venizao#venizao123#89#admin";
+  char configEEPROM[ eepromMax];
+  configStringEEPROM.toCharArray(configEEPROM,sizeof(configEEPROM));  
+  
+  //WRITE
+  for (int i2= 0 ; i2 < strlen(configEEPROM) ; i2++) {
+    EEPROM.write(i2, configStringEEPROM[i2]);
+  }
+  
+  
+  
+  //READ
+  Serial.println("EEPROM");
+  for (int i3 = 0; i3 < eepromMax; ++i3)
+  {
+    Serial.print(char(EEPROM.read(i3)));
+  }
 
-  if (codeRunningForTheFirstTime) {
+  EEPROM.commit();
+  EEPROM.end();
+  
+  /*const char * eepromload = EEPROM.get(0, configStringEEPROM[i2]);
+  
+
+  if(strlen(wifiSSID) == 0){
     modoConfiguracao = true;
     Serial.println("Ativando modo de configuraçao.");
-    /* OK first time running, set defaults */
-    configuration.pin1 = 0;
-    configuration.pin2 = 0;
-    configuration.pin3 = 0;
-    configuration.pin4 = 0;
-    configuration.pin5 = 0;
 
-    configuration.ssid_wifi_controlador  = "";
-    configuration.senha_wifi_controlador = "";
-    configuration.senha_controlador = "";
-    configuration.porta_controlador = "";
-    configuration.ip_server         = "";
-    configuration.porta_server      = "";
-    configuration.senha_server      = "";
+    String SSID = "Venizao";
+    char SSID_CHAR[50];
+    SSID.toCharArray(SSID_CHAR,sizeof(SSID_CHAR));
+    EEPROM.put(0, SSID_CHAR);
+    EEPROM.commit();
 
-    EEPROM_writeAnything(0, configuration);
-
-
-    //CRIA REDE ADHOC PARA UM DISPOSITIVO AUTENTICAR NA REDE E PODER ALTERAR O INGRESSO DO WIFI NO CONTROLADOR
-    //ATIVAR REDE ADHOC E PERMITIR CONEXAO PARA EDIÇAO DOS PARAMETROS DO ADMIN
-
-    //INICIA SERVIDOR INTERNO PARA CONFIGURAÇAO DO CONTROLADOR E GRAVAR DADOS NA EPROM
-    //server.begin();
-    //Serial.println("Iniciando servidor de administraçao");
-    
+    //storeStruct(&configuration, sizeof(configuration));
+  }else{
+     Serial.println("Ativando modo de operação para ssid: ");
   }
+  //#SE ESTIVER OPERANDO
   //INICIA UM SERVIDOR WEB PARA VERIFICAR SE VEM O COMANDO DE RESET E modoConfiguracao= true , em modo de operaçao ele eh false
-    
+  
+  //#SE NAO TA OPERANDO
+  //CRIA REDE ADHOC PARA UM DISPOSITIVO AUTENTICAR NA REDE E PODER ALTERAR O INGRESSO DO WIFI NO CONTROLADOR
+  //ATIVAR REDE ADHOC E PERMITIR CONEXAO PARA EDIÇAO DOS PARAMETROS DO ADMIN
+
+  //INICIA SERVIDOR INTERNO PARA CONFIGURAÇAO DO CONTROLADOR E GRAVAR DADOS NA EPROM
+  //server.begin();
+  //Serial.println("Iniciando servidor de administraçao");
+    */
 }
  
 void loop() {
