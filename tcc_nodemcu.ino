@@ -1,50 +1,29 @@
 #include <EEPROM.h>
 #include <ESP8266WiFi.h>
+//DECLARAÇOES DE METODOS
 
-const char* ssid     = "Venizao";
-const char* password = "venizao123";
-const int porta      = 80;
-
-//servidor http
-WiFiServer server(porta);
-
-// INICIA struct e metodos do outro sketch util
+//EEPROM
+void EEPROM_limpaEEPROM();
+void EEPROM_gravaNovaStringEEPROM(String novaEEPROM);
+char * EEPROM_getEEPROM(char* buffer);
+char * EEPROM_getValue(int v);
+//EEPROM
 
 // MODO DE OPERACAO DO CONTROLADOR
 bool modoConfiguracao = false;
-int eepromMax=250;
-void setup() {
-  EEPROM.begin(512);
-  Serial.begin(115200);
-  /*delay(10);
-  //CLEAR
-  for (int i = 0 ; i < eepromMax ; i++) {
-    EEPROM.write(i, 0);
-  }
-  
-  
-  
-  //SSID_WIFI#SENHA_WIFI#PORTA_ADMIN#SENHA_ADMIN#PIN1#PIN2
-  String configStringEEPROM = "Venizao#venizao123#89#admin";
-  char configEEPROM[ eepromMax];
-  configStringEEPROM.toCharArray(configEEPROM,sizeof(configEEPROM));  
-  
-  //WRITE
-  for (int i2= 0 ; i2 < strlen(configEEPROM) ; i2++) {
-    EEPROM.write(i2, configStringEEPROM[i2]);
-  }
-  
-  
-  
-  //READ*/
-  Serial.println("EEPROM");
-  for (int i3 = 0; i3 < eepromMax; ++i3)
-  {
-    Serial.print(char(EEPROM.read(i3)));
-  }
+int eepromMax         = 250;
 
-  EEPROM.commit();
-  EEPROM.end();
+void setup() {
+  //WiFi.softAP(ssid, password);
+
+  Serial.begin(115200);
+  EEPROM_limpaEEPROM();
+  EEPROM_gravaNovaStringEEPROM("Venizao#venizao123#89#admin");
+  delay(10);
+  
+  String config = EEPROM_getValue(0);  
+  Serial.println("Config:"+config);
+
   
   /*const char * eepromload = EEPROM.get(0, configStringEEPROM[i2]);
   
