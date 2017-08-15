@@ -21,7 +21,7 @@ void setup() {
   EEPROM_gravaNovaStringEEPROM("Venizao#venizao123#89#admin");
   delay(10);
   
-  String config = String(EEPROM_getValueEEPROM(0));  
+  String config = String(EEPROM_getValueEEPROM(1));  
   Serial.println("Config:"+config);
   
   //#SE ESTIVER OPERANDO
