@@ -6,7 +6,7 @@
 void EEPROM_limpaEEPROM();
 void EEPROM_gravaNovaStringEEPROM(String novaEEPROM);
 char * EEPROM_getEEPROM(char* buffer);
-char * EEPROM_getValueEEPROM(int v);
+
 //EEPROM
 
 // MODO DE OPERACAO DO CONTROLADOR
@@ -21,7 +21,7 @@ void setup() {
   EEPROM_gravaNovaStringEEPROM("Venizao#venizao123#89#admin");
   delay(10);
   
-  String config = String(EEPROM_getValueEEPROM(1));  
+  String config = String(EEPROM_getEEPROM(0));  
   Serial.println("Config:"+config);
   
   //#SE ESTIVER OPERANDO
