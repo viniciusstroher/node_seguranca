@@ -57,7 +57,7 @@ void setup() {
  
 void loop() {
   // Check if a client has connected
-  WiFiClient client = server.available();
+ /* WiFiClient client = server.available();
   if (!client) {
     return;
   }
@@ -84,7 +84,7 @@ void loop() {
     digitalWrite(ledPin, LOW);
     value = LOW;
   }
-  */
+
 // Set ledPin according to the request
 //digitalWrite(ledPin, value);
  
@@ -103,5 +103,5 @@ void loop() {
   client.println("</html>");
  
   delay(1);
-  Serial.println("Client disonnected");
+  Serial.println("Client disonnected");  */
 }
