@@ -6,8 +6,11 @@
 void EEPROM_limpaEEPROM();
 void EEPROM_gravaNovaStringEEPROM(String novaEEPROM);
 char * EEPROM_getEEPROM(char* buffer);
-
 //EEPROM
+
+//CONTROLADOR
+void Controlador_modoAdmin();
+//CONTROLADOR
 
 // MODO DE OPERACAO DO CONTROLADOR
 bool modoConfiguracao = false;
@@ -23,6 +26,7 @@ void setup() {
   
   String config = String(EEPROM_getEEPROM());  
   Serial.println("Config:"+config);
+  Controlador_modoAdmin();
   
   //#SE ESTIVER OPERANDO
   //INICIA UM SERVIDOR WEB PARA VERIFICAR SE VEM O COMANDO DE RESET E modoConfiguracao= true , em modo de operaçao ele eh false

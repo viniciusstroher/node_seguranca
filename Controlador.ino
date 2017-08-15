@@ -1,11 +1,11 @@
 #include <ESP8266WiFi.h>
 
-void modoAdmin(){
+void Controlador_modoAdmin(){
   WiFi.mode(WIFI_AP_STA);
-  WiFi.softAP("", "");
+  WiFi.softAP("Configuração do microcontrolador "+random(1000,9999), "admin");
 }
  
-void modoOperacao(){
+void Controlador_modoOperacao(){
   WiFi.mode(WIFI_AP_STA);
   WiFi.softAP("","");
 }
