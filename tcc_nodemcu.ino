@@ -6,7 +6,7 @@
 void EEPROM_limpaEEPROM();
 void EEPROM_gravaNovaStringEEPROM(String novaEEPROM);
 char * EEPROM_getEEPROM(char* buffer);
-char * EEPROM_getValue(int v);
+char * EEPROM_getValueEEPROM(int v);
 //EEPROM
 
 // MODO DE OPERACAO DO CONTROLADOR
@@ -21,27 +21,9 @@ void setup() {
   EEPROM_gravaNovaStringEEPROM("Venizao#venizao123#89#admin");
   delay(10);
   
-  String config = EEPROM_getValue(0);  
+  String config = String(EEPROM_getValueEEPROM(0));  
   Serial.println("Config:"+config);
-
   
-  /*const char * eepromload = EEPROM.get(0, configStringEEPROM[i2]);
-  
-
-  if(strlen(wifiSSID) == 0){
-    modoConfiguracao = true;
-    Serial.println("Ativando modo de configuraçao.");
-
-    String SSID = "Venizao";
-    char SSID_CHAR[50];
-    SSID.toCharArray(SSID_CHAR,sizeof(SSID_CHAR));
-    EEPROM.put(0, SSID_CHAR);
-    EEPROM.commit();
-
-    //storeStruct(&configuration, sizeof(configuration));
-  }else{
-     Serial.println("Ativando modo de operação para ssid: ");
-  }
   //#SE ESTIVER OPERANDO
   //INICIA UM SERVIDOR WEB PARA VERIFICAR SE VEM O COMANDO DE RESET E modoConfiguracao= true , em modo de operaçao ele eh false
   
@@ -52,7 +34,7 @@ void setup() {
   //INICIA SERVIDOR INTERNO PARA CONFIGURAÇAO DO CONTROLADOR E GRAVAR DADOS NA EPROM
   //server.begin();
   //Serial.println("Iniciando servidor de administraçao");
-    */
+    
 }
  
 void loop() {
