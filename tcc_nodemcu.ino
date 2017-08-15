@@ -18,7 +18,7 @@ void setup() {
 
   Serial.begin(115200);
   EEPROM_limpaEEPROM();
-  EEPROM_gravaNovaStringEEPROM("Venizao#venizao123#89#admin");
+  EEPROM_gravaNovaStringEEPROM("A#Venizao#venizao123#89#admin");
   delay(10);
   
   String config = String(EEPROM_getEEPROM());  
