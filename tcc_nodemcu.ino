@@ -10,8 +10,7 @@ char * EEPROM_getEEPROM(char* buffer);
 //EEPROM
 
 //ADMIN
-
- ESP8266WebServer server(80);
+ESP8266WebServer server(80);
 void Controlador_modoAdmin();
 //ADMIN
 
