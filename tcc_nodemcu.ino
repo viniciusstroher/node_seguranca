@@ -9,20 +9,20 @@ void EEPROM_gravaNovaStringEEPROM(String novaEEPROM);
 char * EEPROM_getEEPROM(char* buffer);
 //EEPROM
 
-//CONTROLADOR
-ESP8266WebServer Controlador_modoAdmin();
-//CONTROLADOR
+//ADMIN
+
+ ESP8266WebServer server(80);
+void Controlador_modoAdmin();
+//ADMIN
 
 // MODO DE OPERACAO DO CONTROLADOR
 bool modoConfiguracao = false;
 int eepromMax         = 250;
 
 
-ESP8266WebServer server;
 
 void setup() {
-  //WiFi.softAP(ssid, password);
-
+  
   Serial.begin(115200);
   EEPROM_limpaEEPROM();
   EEPROM_gravaNovaStringEEPROM("A#Venizao#venizao123#89#admin");
@@ -30,8 +30,10 @@ void setup() {
   
   String config = String(EEPROM_getEEPROM());  
   Serial.println("Config:"+config);
-  server = Controlador_modoAdmin();
-  
+  //server = Controlador_modoAdmin();
+   Serial.println("MODO ADMIN ATIVADO");
+  Controlador_modoAdmin();
+
   //#SE ESTIVER OPERANDO
   //INICIA UM SERVIDOR WEB PARA VERIFICAR SE VEM O COMANDO DE RESET E modoConfiguracao= true , em modo de operaçao ele eh false
   
@@ -49,3 +51,4 @@ void loop() {
 
   server.handleClient();
 }
+
