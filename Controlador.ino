@@ -12,6 +12,7 @@ ESP8266WebServer Controlador_modoAdmin(){
  
   Serial.println("MODO ADMIN ATIVADO");
   WiFi.softAP("SYS_SEGURANCA", "teste");
+  WiFi.begin("SYS_SEGURANCA", "teste");
   
   ESP8266WebServer server(80);
   IPAddress myIP = WiFi.softAPIP();
