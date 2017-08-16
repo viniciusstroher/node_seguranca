@@ -9,7 +9,7 @@ void handleRoot() {
 ESP8266WebServer Controlador_modoAdmin(){
  
   Serial.println("MODO ADMIN ATIVADO");
-  WiFi.mode(WIFI_AP_STA);
+  WiFi.mode(WIFI_AP);
   WiFi.softAP("SYS_SEGURANCA");
   
   ESP8266WebServer server(80);
