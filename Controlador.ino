@@ -11,8 +11,8 @@ void handleRoot() {
 ESP8266WebServer Controlador_modoAdmin(){
  
   Serial.println("MODO ADMIN ATIVADO");
-  WiFi.softAP("SYS_SEGURANCA", "teste");
-  WiFi.begin("SYS_SEGURANCA", "teste");
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP("SYS_SEGURANCA");
   
   ESP8266WebServer server(80);
   IPAddress myIP = WiFi.softAPIP();
@@ -21,13 +21,14 @@ ESP8266WebServer Controlador_modoAdmin(){
   Serial.println(myIP);
   
   server.on("/", handleRoot);
+  server.on("/teste", handleRoot);
   server.begin();
 
   return server;
 }
  
 void Controlador_modoOperacao(){
-  WiFi.mode(WIFI_STA);
+  
   //Configs da EEPROM
   WiFi.softAP("","");
   WiFi.begin();
