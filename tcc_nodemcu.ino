@@ -1,6 +1,7 @@
 #include <EEPROM.h>
 #include <ESP8266WiFi.h>
-//DECLARAÇOES DE METODOS
+#include <WiFiClient.h> 
+#include <ESP8266WebServer.h>
 
 //EEPROM
 void EEPROM_limpaEEPROM();
@@ -9,12 +10,15 @@ char * EEPROM_getEEPROM(char* buffer);
 //EEPROM
 
 //CONTROLADOR
-void Controlador_modoAdmin();
+ESP8266WebServer Controlador_modoAdmin();
 //CONTROLADOR
 
 // MODO DE OPERACAO DO CONTROLADOR
 bool modoConfiguracao = false;
 int eepromMax         = 250;
+
+
+ESP8266WebServer handlerServer;
 
 void setup() {
   //WiFi.softAP(ssid, password);
@@ -26,7 +30,7 @@ void setup() {
   
   String config = String(EEPROM_getEEPROM());  
   Serial.println("Config:"+config);
-  Controlador_modoAdmin();
+  handlerServer = Controlador_modoAdmin();
   
   //#SE ESTIVER OPERANDO
   //INICIA UM SERVIDOR WEB PARA VERIFICAR SE VEM O COMANDO DE RESET E modoConfiguracao= true , em modo de operaçao ele eh false
@@ -42,52 +46,7 @@ void setup() {
 }
  
 void loop() {
-  // Check if a client has connected
- /* WiFiClient client = server.available();
-  if (!client) {
-    return;
-  }
+  handlerServer.handleClient();
  
-  // Wait until the client sends some data
-  Serial.println("new client");
-  while(!client.available()){
-    delay(1);
-  }
  
-  // Read the first line of the request
-  String request = client.readStringUntil('\r');
-  Serial.println(request);
-  client.flush();
- 
-  // Match the request
-  /*
-  int value = LOW;
-  if (request.indexOf("/LED=ON") != -1)  {
-    digitalWrite(ledPin, HIGH);
-    value = HIGH;
-  }
-  if (request.indexOf("/LED=OFF") != -1)  {
-    digitalWrite(ledPin, LOW);
-    value = LOW;
-  }
-
-// Set ledPin according to the request
-//digitalWrite(ledPin, value);
- 
-  // Return the response
-  client.println("HTTP/1.1 200 OK");
-  client.println("Content-Type: text/html");
-  client.println(""); //  do not forget this one
-  client.println("<!DOCTYPE HTML>");
-  client.println("<html>");
- 
-  client.print("Led pin is now: ");
- 
-  client.println("<br><br>");
-  client.println("<a href=\"/LED=ON\"\"><button>Turn On </button></a>");
-  client.println("<a href=\"/LED=OFF\"\"><button>Turn Off </button></a><br />");  
-  client.println("</html>");
- 
-  delay(1);
-  Serial.println("Client disonnected");  */
 }
