@@ -2,8 +2,6 @@
 #include <WiFiClient.h> 
 #include <ESP8266WebServer.h>
 
-ESP8266WebServer server;
-
 void handleRoot() {
   server.send(200, "text/html", "<h1>You are connected</h1>");
 }
@@ -11,7 +9,7 @@ void handleRoot() {
 ESP8266WebServer Controlador_modoAdmin(){
  
   Serial.println("MODO ADMIN ATIVADO");
-  WiFi.mode(WIFI_AP);
+  WiFi.mode(WIFI_AP_STA);
   WiFi.softAP("SYS_SEGURANCA");
   
   ESP8266WebServer server(80);

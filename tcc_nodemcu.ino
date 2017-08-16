@@ -18,7 +18,7 @@ bool modoConfiguracao = false;
 int eepromMax         = 250;
 
 
-ESP8266WebServer handlerServer;
+ESP8266WebServer server;
 
 void setup() {
   //WiFi.softAP(ssid, password);
@@ -30,7 +30,7 @@ void setup() {
   
   String config = String(EEPROM_getEEPROM());  
   Serial.println("Config:"+config);
-  handlerServer = Controlador_modoAdmin();
+  server = Controlador_modoAdmin();
   
   //#SE ESTIVER OPERANDO
   //INICIA UM SERVIDOR WEB PARA VERIFICAR SE VEM O COMANDO DE RESET E modoConfiguracao= true , em modo de operaçao ele eh false
@@ -46,5 +46,6 @@ void setup() {
 }
  
 void loop() {
+
   handlerServer.handleClient();
 }
