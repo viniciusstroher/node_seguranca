@@ -22,6 +22,7 @@ void handleAdminPOST(){
 
 void handleReiniciarPOST(){
   //reiniciar
+  server.send(200, "text/html", "<center><h1>Voltar a adminstração.<br/><a href=\"\/admin\">Clique aqui para acessar o admin.</a></h1></center>");
   resetFunc();
 }
 
