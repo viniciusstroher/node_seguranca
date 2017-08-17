@@ -3,15 +3,15 @@
 #include <ESP8266WebServer.h>
  
 void handleRoot() {
-  server.send(200, "text/html", "<center><h1>Pagina de adminstração.<br/><a href="/admin">Clique aqui para acessar o admin.</a></h1></center>");
+  server.send(200, "text/html", "<center><h1>Pagina de adminstração.<br/><a href=\"\/admin\">Clique aqui para acessar o admin.</a></h1></center>");
 }
 
 void handleAdminGET(){
-  server.send(200, "text/html", "<form method=\"POST\" action=\"/admin\"><center>String de configuração: <input type=\"text\" name=\"stringConfig\" /><input type=\"submit\" value=\"Salvar\"/> </center></form>    <br/><br/>     <form method=\"POST\" action=\"/reiniciar\"><center><input type=\"submit\" value=\"Reiniciar\"/> </center></form>");
+  server.send(200, "text/html", "<form method=\"POST\" action=\"\/admin\"><center>String de configuração: <input type=\"text\" name=\"stringConfig\" /><input type=\"submit\" value=\"Salvar\"/> </center></form>    <br/><br/>     <form method=\"POST\" action=\"\/reiniciar\"><center><input type=\"submit\" value=\"Reiniciar\"/> </center></form>");
 }
 
 void handleAdminPOST(){
-  server.send(200, "text/html", "<center><h1>Configuração salva.<br/><a href=\"/admin\">Volta para admin.</a></h1></center>");
+  server.send(200, "text/html", "<center><h1>Configuração salva.<br/><a href=\"\/admin\">Volta para admin.</a></h1></center>");
 }
 
 void handleReiniciarPOST(){
