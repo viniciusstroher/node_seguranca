@@ -2,7 +2,7 @@
 #define eepromMax 250
 
 //MODO DE OPERACAO (A-ADMIN, O-OPERACAO)#SSID_WIFI#SENHA_WIFI#PORTA_ADMIN#SENHA_ADMIN#PIN1#PIN2
-#define configPadrao "Venizao#venizao123#89#admin"
+#define configPadrao "#Venizao#venizao123#89#admin"
 void EEPROM_limpaEEPROM(){
   EEPROM.begin(512);
 
@@ -46,15 +46,17 @@ char * EEPROM_getEEPROM(){
   return eeprom;
 }
 
-char * EEPROM_getValueEEPROM(int hash){
+String EEPROM_getValueEEPROM(int hash){
   EEPROM.begin(512);
- 
+  Serial.begin(115200);
   char eeprom[eepromMax],eepromRetorno[20];
   char b;
+  eepromRetorno[0] = ' ';
   
   bool primeiroHash = false;
   int  hashCount=0;
   int eepromRetornoIndex =0;
+  
   for (int i3 = 0; i3 < eepromMax; ++i3)
   {
     b = char(EEPROM.read(i3));
@@ -63,10 +65,13 @@ char * EEPROM_getValueEEPROM(int hash){
       if(!primeiroHash && hashCount==hash){
         primeiroHash=true;
       }else if(primeiroHash){
+        eepromRetorno[eepromRetornoIndex] = '\0';
         break;
       }
-    }else{
-      Serial.println("B:"+String(b));
+    }
+    
+    if(primeiroHash && b!='#'){
+      
       eepromRetorno[eepromRetornoIndex] = b;
       eepromRetornoIndex++;
     }
@@ -74,6 +79,6 @@ char * EEPROM_getValueEEPROM(int hash){
   }
   EEPROM.commit();
   EEPROM.end();
-  
-  return eepromRetorno;
+
+  return String(eepromRetorno);
 }
