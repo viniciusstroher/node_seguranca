@@ -45,9 +45,10 @@ void Controlador_modoAdmin(){
 }
  
 void Controlador_modoOperacao(){
-  
+  Serial.begin(115200);
+  Serial.println("EM DESENVOLVIMENTO");
   //Configs da EEPROM
-  WiFi.softAP("","");
-  WiFi.begin();
+  //WiFi.softAP("","");
+  //WiFi.begin();
 }
 

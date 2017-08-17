@@ -10,6 +10,8 @@ char * EEPROM_getEEPROM(char* buffer);
 String EEPROM_getValueEEPROM(int hash);
 //EEPROM
 
+void(* resetFunc) (void) = 0;
+
 //ADMIN
 ESP8266WebServer server(80);
 void Controlador_modoAdmin();
@@ -17,41 +19,34 @@ void Controlador_modoAdmin();
 
 //VARIAVEIS
 int  eepromMax         = 250;
+String operacao;
 //PINOS
 int  PINO_RESET = 16;
 
 
 void setup() {
   pinMode(PINO_RESET, INPUT_PULLUP);
-
   Serial.begin(115200);
- 
+    
+  operacao        = EEPROM_getValueEEPROM(1); 
   delay(10);
-  
-  //String config = String(EEPROM_getEEPROM());  
-  String operacao = EEPROM_getValueEEPROM(1); 
-    delay(10);
   String ssid     = EEPROM_getValueEEPROM(2); 
-      delay(10);
+  delay(10);
   String pass     = EEPROM_getValueEEPROM(3); 
    
   Serial.println("Operacao: "+operacao+" SSID: "+ssid+" PASSWORD: "+pass);
   
   //server = Controlador_modoAdmin();
-  Serial.println("MODO ADMIN ATIVADO");
-  Controlador_modoAdmin();
+ if(operacao.equals("A")){
+    Serial.println("MODO ADMIN ATIVADO");
+    Controlador_modoAdmin();
 
-  //#SE ESTIVER OPERANDO
-  //INICIA UM SERVIDOR WEB PARA VERIFICAR SE VEM O COMANDO DE RESET E modoConfiguracao= true , em modo de operaçao ele eh false
-  
-  //#SE NAO TA OPERANDO
-  //CRIA REDE ADHOC PARA UM DISPOSITIVO AUTENTICAR NA REDE E PODER ALTERAR O INGRESSO DO WIFI NO CONTROLADOR
-  //ATIVAR REDE ADHOC E PERMITIR CONEXAO PARA EDIÇAO DOS PARAMETROS DO ADMIN
+ }
+ if(operacao.equals("O")){
+    Serial.println("MODO OPERACAO ATIVADO");
+    Controlador_modoOperacao();
+ }
 
-  //INICIA SERVIDOR INTERNO PARA CONFIGURAÇAO DO CONTROLADOR E GRAVAR DADOS NA EPROM
-  //server.begin();
-  //Serial.println("Iniciando servidor de administraçao"); 
-    
 }
  
 void loop() {
@@ -61,8 +56,11 @@ void loop() {
      EEPROM_limpaEEPROM();
      EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#89#admin");
      Serial.println("Resetando configs do controlador.");
+     resetFunc();
   }
-   
-  server.handleClient();
+  
+  if(operacao.equals("A")){
+    server.handleClient();
+  }
 }
 
