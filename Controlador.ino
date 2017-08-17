@@ -1,7 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h> 
 #include <ESP8266WebServer.h>
- 
+void(* resetFunc) (void) = 0;
 void handleRoot() {
   server.send(200, "text/html", "<center><h1>Pagina de adminstração.<br/><a href=\"\/admin\">Clique aqui para acessar o admin.</a></h1></center>");
 }
@@ -13,8 +13,8 @@ void handleAdminGET(){
 }
 
 void handleAdminPOST(){
-  String novaValorConfig = server.arg("valorConfig");
-
+  String novaValorConfig = server.arg("stringConfig");
+ 
   EEPROM_gravaNovaStringEEPROM(novaValorConfig);
   delay(10);
   server.send(200, "text/html", "<center><h1>Configuração salva.<br/><a href=\"\/admin\">Volta para admin.</a></h1></center>");
@@ -22,6 +22,7 @@ void handleAdminPOST(){
 
 void handleReiniciarPOST(){
   //reiniciar
+  resetFunc();
 }
 
 void Controlador_modoAdmin(){
