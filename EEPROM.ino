@@ -46,3 +46,34 @@ char * EEPROM_getEEPROM(){
   return eeprom;
 }
 
+char * EEPROM_getValueEEPROM(int hash){
+  EEPROM.begin(512);
+ 
+  char eeprom[eepromMax],eepromRetorno[20];
+  char b;
+  
+  bool primeiroHash = false;
+  int  hashCount=0;
+  int eepromRetornoIndex =0;
+  for (int i3 = 0; i3 < eepromMax; ++i3)
+  {
+    b = char(EEPROM.read(i3));
+    if(b=='#'){
+      hashCount++;
+      if(!primeiroHash && hashCount==hash){
+        primeiroHash=true;
+      }else if(primeiroHash){
+        break;
+      }
+    }else{
+      Serial.println("B:"+String(b));
+      eepromRetorno[eepromRetornoIndex] = b;
+      eepromRetornoIndex++;
+    }
+
+  }
+  EEPROM.commit();
+  EEPROM.end();
+  
+  return eepromRetorno;
+}

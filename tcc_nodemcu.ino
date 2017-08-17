@@ -7,6 +7,7 @@
 void EEPROM_limpaEEPROM();
 void EEPROM_gravaNovaStringEEPROM(String novaEEPROM);
 char * EEPROM_getEEPROM(char* buffer);
+char * EEPROM_getValueEEPROM(int hash);
 //EEPROM
 
 //ADMIN
@@ -23,11 +24,13 @@ int eepromMax         = 250;
 void setup() {
   
   Serial.begin(115200);
-  EEPROM_limpaEEPROM();
-  EEPROM_gravaNovaStringEEPROM("A#Venizao#venizao123#89#admin");
+  //EEPROM_limpaEEPROM();
+  //EEPROM_gravaNovaStringEEPROM("A#Venizao#venizao123#89#admin");
   delay(10);
   
-  String config = String(EEPROM_getEEPROM());  
+  //String config = String(EEPROM_getEEPROM());  
+  String config = String(EEPROM_getValueEEPROM(1)); 
+   
   Serial.println("Config:"+config);
   //server = Controlador_modoAdmin();
    Serial.println("MODO ADMIN ATIVADO");
@@ -42,7 +45,7 @@ void setup() {
 
   //INICIA SERVIDOR INTERNO PARA CONFIGURAÇAO DO CONTROLADOR E GRAVAR DADOS NA EPROM
   //server.begin();
-  //Serial.println("Iniciando servidor de administraçao");
+  //Serial.println("Iniciando servidor de administraçao"); 
     
 }
  
