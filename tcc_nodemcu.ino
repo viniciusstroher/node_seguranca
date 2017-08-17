@@ -4,8 +4,8 @@
 #include <ESP8266WebServer.h>
 
 //EEPROM
-void EEPROM_limpaEEPROM();
-void EEPROM_gravaNovaStringEEPROM(String novaEEPROM);
+void   EEPROM_limpaEEPROM();
+void   EEPROM_gravaNovaStringEEPROM(String novaEEPROM);
 char * EEPROM_getEEPROM(char* buffer);
 String EEPROM_getValueEEPROM(int hash);
 //EEPROM
@@ -15,17 +15,17 @@ ESP8266WebServer server(80);
 void Controlador_modoAdmin();
 //ADMIN
 
-// MODO DE OPERACAO DO CONTROLADOR
-bool modoConfiguracao = false;
-int eepromMax         = 250;
-
+//VARIAVEIS
+int  eepromMax         = 250;
+//PINOS
+int  PINO_RESET = 16;
 
 
 void setup() {
-  
+  pinMode(PINO_RESET, INPUT_PULLUP);
+
   Serial.begin(115200);
-  //EEPROM_limpaEEPROM();
-  //EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#89#admin");
+ 
   delay(10);
   
   //String config = String(EEPROM_getEEPROM());  
@@ -55,7 +55,14 @@ void setup() {
 }
  
 void loop() {
-
+  int fazerReset = digitalRead(PINO_RESET);
+  if(fazerReset == 1){
+     //LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
+     EEPROM_limpaEEPROM();
+     EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#89#admin");
+     Serial.println("Resetando configs do controlador.");
+  }
+   
   server.handleClient();
 }
 
