@@ -7,10 +7,16 @@ void handleRoot() {
 }
 
 void handleAdminGET(){
-  server.send(200, "text/html", "<form method=\"POST\" action=\"\/admin\"><center>String de configuração: <input type=\"text\" name=\"stringConfig\" /><input type=\"submit\" value=\"Salvar\"/> </center></form>    <br/><br/>     <form method=\"POST\" action=\"\/reiniciar\"><center><input type=\"submit\" value=\"Reiniciar\"/> </center></form>");
+  String valorConfig = String(EEPROM_getEEPROM()); 
+  delay(10);
+  server.send(200, "text/html", "<form method=\"POST\" action=\"\/admin\"><center>String de configuração: <input type=\"text\" name=\"stringConfig\" value=\""+valorConfig+"\" /><input type=\"submit\" value=\"Salvar\"/> </center></form>    <br/><br/>     <form method=\"POST\" action=\"\/reiniciar\"><center><input type=\"submit\" value=\"Reiniciar\"/> </center></form>");
 }
 
 void handleAdminPOST(){
+  String novaValorConfig = server.arg("valorConfig");
+
+  EEPROM_gravaNovaStringEEPROM(novaValorConfig);
+  delay(10);
   server.send(200, "text/html", "<center><h1>Configuração salva.<br/><a href=\"\/admin\">Volta para admin.</a></h1></center>");
 }
 
