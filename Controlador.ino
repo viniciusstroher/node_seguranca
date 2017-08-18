@@ -23,7 +23,7 @@ void handleAdminPOST(){
 void handleReiniciarPOST(){
   //reiniciar
   server.send(200, "text/html", "<center><h1>Voltar a adminstração.<br/><a href=\"\/admin\">Clique aqui para acessar o admin.</a></h1></center>");
-  resetFunc();
+  Controlador_resetaControlador();
 }
 
 void Controlador_modoAdmin(){
@@ -50,5 +50,9 @@ void Controlador_modoOperacao(){
   //Configs da EEPROM
   //WiFi.softAP("","");
   //WiFi.begin();
+}
+
+void Controlador_resetaControlador(){
+  digitalWrite(PINO_FUNCAO_RESET,HIGH);
 }
 

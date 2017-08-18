@@ -10,22 +10,22 @@ char * EEPROM_getEEPROM(char* buffer);
 String EEPROM_getValueEEPROM(int hash);
 //EEPROM
 
-void(* resetFunc) (void) = 0;
-
 //ADMIN
 ESP8266WebServer server(80);
 void Controlador_modoAdmin();
+void Controlador_resetaControlador();
 //ADMIN
 
 //VARIAVEIS
 int  eepromMax         = 250;
 String operacao;
 //PINOS
-int  PINO_RESET = 16;
-
+int  PINO_RESET = 16;       //D0
+int  PINO_FUNCAO_RESET = 5; //D1
 
 void setup() {
   pinMode(PINO_RESET, INPUT_PULLUP);
+  pinMode(PINO_FUNCAO_RESET, OUTPUT);
   Serial.begin(115200);
     
   operacao        = EEPROM_getValueEEPROM(1); 
@@ -37,15 +37,15 @@ void setup() {
   Serial.println("Operacao: "+operacao+" SSID: "+ssid+" PASSWORD: "+pass);
   
   //server = Controlador_modoAdmin();
- if(operacao.equals("A")){
+  if(operacao.equals("A")){
     Serial.println("MODO ADMIN ATIVADO");
     Controlador_modoAdmin();
 
- }
- if(operacao.equals("O")){
+  }
+  if(operacao.equals("O")){
     Serial.println("MODO OPERACAO ATIVADO");
     Controlador_modoOperacao();
- }
+  }
 
 }
  
@@ -56,11 +56,13 @@ void loop() {
      EEPROM_limpaEEPROM();
      EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#89#admin");
      Serial.println("Resetando configs do controlador.");
-     resetFunc();
+     Controlador_resetaControlador();
   }
   
   if(operacao.equals("A")){
     server.handleClient();
   }
 }
+
+
 
