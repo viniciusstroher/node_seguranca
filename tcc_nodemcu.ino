@@ -50,7 +50,7 @@ void setup() {
 }
  
 void loop() {
-  int fazerReset = digitalRead(PINO_FUNCAO_RESET);
+  int fazerReset = digitalRead(PINO_RESET);
   if(fazerReset == 1){
      //LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
      EEPROM_limpaEEPROM();
