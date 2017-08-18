@@ -50,11 +50,12 @@ void setup() {
 }
  
 void loop() {
-  int fazerReset = digitalRead(PINO_RESET);
+  int fazerReset = digitalRead(PINO_FUNCAO_RESET);
   if(fazerReset == 1){
      //LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
      EEPROM_limpaEEPROM();
      EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#89#admin");
+     delay(100);
      Serial.println("Resetando configs do controlador.");
      Controlador_resetaControlador();
   }
