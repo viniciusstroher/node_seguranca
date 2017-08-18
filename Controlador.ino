@@ -53,6 +53,6 @@ void Controlador_modoOperacao(){
 }
 
 void Controlador_resetaControlador(){
-  digitalWrite(PINO_FUNCAO_RESET,HIGH);
+  resetFunc();
 }
 

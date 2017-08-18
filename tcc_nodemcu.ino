@@ -24,7 +24,8 @@ int  PINO_RESET = 16;       //D0
 int  PINO_FUNCAO_RESET = 5; //D1
 
 void setup() {
-  pinMode(PINO_RESET, INPUT_PULLUP);
+  pinMode(PINO_RESET, INPUT);
+  digitalWrite(PINO_RESET, LOW);
   pinMode(PINO_FUNCAO_RESET, OUTPUT);
   Serial.begin(115200);
     
@@ -51,8 +52,9 @@ void setup() {
  
 void loop() {
   int fazerReset = digitalRead(PINO_RESET);
+  Serial.println(fazerReset);
   if(fazerReset == 1){
-     //LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
+     LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
      EEPROM_limpaEEPROM();
      EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#89#admin");
      delay(100);
