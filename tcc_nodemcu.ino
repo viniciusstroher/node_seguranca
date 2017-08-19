@@ -12,6 +12,7 @@ String EEPROM_getValueEEPROM(int hash);
 
 //ADMIN
 ESP8266WebServer server(80);
+WiFiClientSecure client;
 void Controlador_modoAdmin();
 void Controlador_resetaControlador();
 //ADMIN
@@ -55,14 +56,14 @@ void setup() {
     delay(10);
     String ip       = EEPROM_getValueEEPROM(4);  
     delay(10);
-    String porta       = EEPROM_getValueEEPROM(5);  
+    String porta    = EEPROM_getValueEEPROM(5);  
     delay(10);
     Serial.println("SSID: "+ssid+" Pass: "+pass+" IP:"+ip+" Porta: "+porta);
 
     
     String config = String(EEPROM_getEEPROM());
     Serial.println(config);
-    //Controlador_modoOconfigEEPROM_getEEPROM()peracao(ssid,pass,ip,porta);
+    Controlador_modoOperacao(ssid,pass,ip,porta);
     //SETAR PINAGEM DE SENSORES AQUI
   }
 

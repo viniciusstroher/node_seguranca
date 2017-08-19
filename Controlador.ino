@@ -45,11 +45,19 @@ void Controlador_modoAdmin(){
 }
  
 void Controlador_modoOperacao(String ssid,String pass,String ip,String porta){
-  Serial.begin(115200);
-  Serial.println("EM DESENVOLVIMENTO");
+
+  Serial.println("MODO OPERAÇÃO ATIVADO");
   //Configs da EEPROM
-  //WiFi.softAP("","");
-  //WiFi.begin();
+   WiFi.begin(ssid.c_str(), pass.c_str());
+   while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP: ");
+  Serial.println(WiFi.localIP());
+  
 }
 
 void Controlador_resetaControlador(){
