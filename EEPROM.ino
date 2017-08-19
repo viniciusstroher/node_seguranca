@@ -2,7 +2,7 @@
 #define eepromMax 250
 
 //MODO DE OPERACAO (A-ADMIN, O-OPERACAO)#SSID_WIFI#SENHA_WIFI#IP#PORTA
-#define configPadrao "#A#Venizao#venizao123#testesmart.ddns.net#10000"
+#define configPadrao "#A#Venizao#venizao123#testesmart.ddns.net#10000#"
 void EEPROM_limpaEEPROM(){
   EEPROM.begin(512);
 
@@ -38,7 +38,7 @@ char * EEPROM_getEEPROM(){
     b = char(EEPROM.read(i3));
     eeprom[i3]=b;
     
-   
+    ESP.wdtFeed();
   }
   EEPROM.commit();
   EEPROM.end();
@@ -75,7 +75,7 @@ String EEPROM_getValueEEPROM(int hash){
       eepromRetorno[eepromRetornoIndex] = b;
       eepromRetornoIndex++;
     }
-
+    ESP.wdtFeed();
   }
   EEPROM.commit();
   EEPROM.end();

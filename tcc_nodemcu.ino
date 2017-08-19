@@ -28,19 +28,19 @@ void setup() {
   digitalWrite(PINO_RESET, LOW);
   pinMode(PINO_FUNCAO_RESET, OUTPUT);
   Serial.begin(115200);
+
+  fazerReset();
     
   operacao        = EEPROM_getValueEEPROM(1); 
   delay(10);
-  String ssid     = EEPROM_getValueEEPROM(2); 
-  delay(10);
-  String pass     = EEPROM_getValueEEPROM(3); 
-  delay(10);
-  String ip       = EEPROM_getValueEEPROM(4);  
+  Serial.println("Operacao: "+operacao);
+  /*
+   *  
+  
   delay(10);
   String porta    = EEPROM_getValueEEPROM(5); 
-  Serial.println("Operacao: "+operacao+" SSID: "+ssid+" PASSWORD: "+pass+" IP: "+ip+" Porta: "+porta);
-  
-  //server = Controlador_modoAdmin();
+  Serial.println(" SSID: "+ssid+" PASSWORD: "+pass+" IP: "+ip+" Porta: "+porta);*/
+
   if(operacao.equals("A")){
     Serial.println("MODO ADMIN ATIVADO");
     Controlador_modoAdmin();
@@ -49,32 +49,47 @@ void setup() {
   
   if(operacao.equals("O")){
     Serial.println("MODO OPERACAO ATIVADO");
-    Controlador_modoOperacao(ssid,pass,ip,porta);
+    String ssid     = EEPROM_getValueEEPROM(2); 
+    delay(10);
+    String pass     = EEPROM_getValueEEPROM(3); 
+    delay(10);
+    String ip       = EEPROM_getValueEEPROM(4);  
+    delay(10);
+    Serial.println("SSID: "+ssid+" Pass: "+pass+" IP:"+" Porta: "+porta);
+
+    
+    String config = String(EEPROM_getEEPROM());
+    Serial.println(config);
+    //Controlador_modoOconfigEEPROM_getEEPROM()peracao(ssid,pass,ip,porta);
     //SETAR PINAGEM DE SENSORES AQUI
   }
 
 }
  
 void loop() {
-  int fazerReset = digitalRead(PINO_RESET);
-  
-  if(fazerReset == 1){
-     //LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
-     EEPROM_limpaEEPROM();
-     EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#testesmart.ddns.net#10000");
-     delay(100);
-     Serial.println("Resetando configs do controlador.");
-     Controlador_resetaControlador();
-  }
+  fazerReset();
   
   if(operacao.equals("A")){
     server.handleClient();
   }
 
   if(operacao.equals("O")){
-    ;
+    
   }
 }
 
+
+void fazerReset(){
+  int fazerReset = digitalRead(PINO_RESET);
+  if(fazerReset == 1){
+     //LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
+     EEPROM_limpaEEPROM();
+     delay(100);
+     EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#testesmart.ddns.net#10000#");
+     delay(100);
+     Serial.println("Resetando configs do controlador.");
+     Controlador_resetaControlador();
+  }
+}
 
 
