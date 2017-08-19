@@ -55,6 +55,8 @@ void setup() {
     delay(10);
     String ip       = EEPROM_getValueEEPROM(4);  
     delay(10);
+    String porta       = EEPROM_getValueEEPROM(5);  
+    delay(10);
     Serial.println("SSID: "+ssid+" Pass: "+pass+" IP:"+ip+" Porta: "+porta);
 
     
@@ -85,7 +87,7 @@ void fazerReset(){
      //LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
      EEPROM_limpaEEPROM();
      delay(100);
-     EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#testesmart.ddns.net#10000#");
+     EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#testesmart.ddns.net#10000#0");
      delay(100);
      Serial.println("Resetando configs do controlador.");
      Controlador_resetaControlador();
