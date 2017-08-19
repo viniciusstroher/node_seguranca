@@ -49,7 +49,7 @@ void setup() {
   
   if(operacao.equals("O")){
     Serial.println("MODO OPERACAO ATIVADO");
-    Controlador_modoOperacao();
+    Controlador_modoOperacao(ssid,pass,ip,porta);
   }
 
 }
