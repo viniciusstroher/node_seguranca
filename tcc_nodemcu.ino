@@ -55,7 +55,7 @@ void setup() {
     delay(10);
     String ip       = EEPROM_getValueEEPROM(4);  
     delay(10);
-    Serial.println("SSID: "+ssid+" Pass: "+pass+" IP:"+" Porta: "+porta);
+    Serial.println("SSID: "+ssid+" Pass: "+pass+" IP:"+ip+" Porta: "+porta);
 
     
     String config = String(EEPROM_getEEPROM());
