@@ -34,8 +34,11 @@ void setup() {
   String ssid     = EEPROM_getValueEEPROM(2); 
   delay(10);
   String pass     = EEPROM_getValueEEPROM(3); 
-   
-  Serial.println("Operacao: "+operacao+" SSID: "+ssid+" PASSWORD: "+pass);
+  delay(10);
+  String ip       = EEPROM_getValueEEPROM(4);  
+  delay(10);
+  String porta    = EEPROM_getValueEEPROM(5); 
+  Serial.println("Operacao: "+operacao+" SSID: "+ssid+" PASSWORD: "+pass+" IP: "+ip+" Porta: "+porta);
   
   //server = Controlador_modoAdmin();
   if(operacao.equals("A")){
@@ -43,6 +46,7 @@ void setup() {
     Controlador_modoAdmin();
 
   }
+  
   if(operacao.equals("O")){
     Serial.println("MODO OPERACAO ATIVADO");
     Controlador_modoOperacao();
@@ -56,7 +60,7 @@ void loop() {
   if(fazerReset == 1){
      //LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
      EEPROM_limpaEEPROM();
-     EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#89#admin");
+     EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#testesmart.ddns.net#10000");
      delay(100);
      Serial.println("Resetando configs do controlador.");
      Controlador_resetaControlador();
@@ -64,6 +68,10 @@ void loop() {
   
   if(operacao.equals("A")){
     server.handleClient();
+  }
+
+  if(operacao.equals("O")){
+    ;
   }
 }
 

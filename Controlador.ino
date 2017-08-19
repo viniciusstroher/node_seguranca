@@ -44,7 +44,7 @@ void Controlador_modoAdmin(){
 
 }
  
-void Controlador_modoOperacao(){
+void Controlador_modoOperacao(String ssid,String pass,String ip,String porta){
   Serial.begin(115200);
   Serial.println("EM DESENVOLVIMENTO");
   //Configs da EEPROM
