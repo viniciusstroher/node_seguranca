@@ -70,11 +70,10 @@ void Controlador_enviaDadosServer(String ip,String porta,String senhaApi,String 
     client.print(String("POST ") + hook + " HTTP/1.1\r\n" +
                  "Host: " + ip + "\r\n" +
                  "User-Agent: MICROCONTROLADOR\r\n" +
-                 "Connection: close\r\n\r\n");
-                 "Api-key: "+senhaApi+"\r\n
-                  Content-Length: "+data.length()+"\r\n
-                  "+data+"
-                  ");
+                 "Connection: close\r\n\r\n"
+                 "api-key: "+senhaApi+"\r\n"+
+                 "Content-Length: "+data.length()+"\r\n"+
+                  data);
             
     Serial.println("Recebendo dados ao servidor");
     while (client.connected()) {
