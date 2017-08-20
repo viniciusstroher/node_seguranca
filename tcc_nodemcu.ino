@@ -98,22 +98,22 @@ void loop() {
 }
 
 void capturaSensores(){
-  int estadoSensorMagnetico = digitalRead(PINO_SENSOR_MAGNETICO);
-  int estadoSensorPir       = digitalRead(PINO_SENSOR_PIR);
+  bool estadoSensorMagnetico = digitalRead(PINO_SENSOR_MAGNETICO);
+  bool estadoSensorPir       = digitalRead(PINO_SENSOR_PIR);
     
-  Serial.println("Porta aberta?: "+estadoSensorMagnetico);
-  Serial.println("Movimentação?: "+estadoSensorPir);
+  Serial.println("Porta aberta : "+estadoSensorMagnetico);
+  Serial.println("Movimentacao : "+estadoSensorPir);
 
     
   //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
-  if(estadoSensorMagnetico == 1){
-     Controlador_enviaDadosServer(ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":1}");  
+  if(estadoSensorMagnetico){
+     Controlador_enviaDadosServer(ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
      delay(5000);
   }
 
   //VERIFICA SE O SENSOR PIR ESTA CAPTANDO MOVIMENTO
-  if(estadoSensorPir == 1){
-     Controlador_enviaDadosServer(ip,porta,senhaApi,"/pir","{\"pir\":1}");  
+  if(estadoSensorPir){
+     Controlador_enviaDadosServer(ip,porta,senhaApi,"/pir","{\"pir\":true}");  
      delay(5000);
   }
 }
