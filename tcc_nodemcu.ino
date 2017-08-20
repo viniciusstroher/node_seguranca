@@ -39,7 +39,6 @@ int PINO_SENSOR_PIR       = 4;
 void setup() {
   pinMode(PINO_RESET, INPUT);
   digitalWrite(PINO_RESET, LOW);
-  pinMode(PINO_FUNCAO_RESET, OUTPUT);
   Serial.begin(115200);
 
   fazerReset();
@@ -94,22 +93,30 @@ void loop() {
   }
 
   if(operacao.equals("O")){
-    int estadoSensorMagnetico = digitalRead(PINO_SENSOR_MAGNETICO);
-    int estadoSensorPir       = digitalRead(PINO_SENSOR_PIR);
     
-    Serial.println("Porta aberta?: "+estadoSensorMagnetico);
-    Serial.println("Movimentação?: "+estadoSensorPir);
-
-    
-    //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
-    if(estadoSensorMagnetico == 1){
-      Controlador_enviaDadosServer(ip,porta,senhaApi,"/porta_aberta","{\"alerta\":1}");  
-      delay(5000);
-    }
   }
 }
 
+void capturaSensores(){
+  int estadoSensorMagnetico = digitalRead(PINO_SENSOR_MAGNETICO);
+  int estadoSensorPir       = digitalRead(PINO_SENSOR_PIR);
+    
+  Serial.println("Porta aberta?: "+estadoSensorMagnetico);
+  Serial.println("Movimentação?: "+estadoSensorPir);
 
+    
+  //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
+  if(estadoSensorMagnetico == 1){
+     Controlador_enviaDadosServer(ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":1}");  
+     delay(5000);
+  }
+
+  //VERIFICA SE O SENSOR PIR ESTA CAPTANDO MOVIMENTO
+  if(estadoSensorPir == 1){
+     Controlador_enviaDadosServer(ip,porta,senhaApi,"/pir","{\"pir\":1}");  
+     delay(5000);
+  }
+}
 void fazerReset(){
   int fazerReset = digitalRead(PINO_RESET);
   if(fazerReset == 1){
