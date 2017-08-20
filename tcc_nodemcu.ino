@@ -81,6 +81,9 @@ void setup() {
     //SETAR PINAGEM DE SENSORES AQUI
     pinMode(PINO_SENSOR_MAGNETICO, INPUT_PULLUP);
     pinMode(PINO_SENSOR_PIR, INPUT_PULLUP);
+    digitalWrite(PINO_SENSOR_MAGNETICO,LOW);
+    digitalWrite(PINO_SENSOR_PIR,LOW);
+    
   }
 
 }
