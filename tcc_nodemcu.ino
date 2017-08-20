@@ -13,14 +13,17 @@ String EEPROM_getValueEEPROM(int hash);
 //ADMIN
 ESP8266WebServer server(80);
 WiFiClientSecure client;
+//CONTROLADOR
 void Controlador_modoAdmin();
 void Controlador_resetaControlador();
-//ADMIN
+void Controlador_enviaDadosServer(String ip,String porta,String hook,String data);
+
 
 //VARIAVEIS
-int  eepromMax         = 250;
+int    eepromMax         = 250;
 String operacao;
-//PINOS
+
+//PINOS RESET
 int  PINO_RESET = 16;       //D0
 int  PINO_FUNCAO_RESET = 5; //D1
 
@@ -77,7 +80,8 @@ void loop() {
   }
 
   if(operacao.equals("O")){
-    
+    Controlador_enviaDadosServer(ip,porta,"/teste","{alerta:1}");
+    delay(5000);
   }
 }
 

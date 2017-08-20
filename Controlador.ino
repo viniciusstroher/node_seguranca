@@ -60,6 +60,32 @@ void Controlador_modoOperacao(String ssid,String pass,String ip,String porta){
   
 }
 
+void Controlador_enviaDadosServer(String ip,String porta,String hook,String data){
+  if (!client.connect(host, httpsPort)) {
+    Serial.println("Falha de conexao no servidor "+ip+":"+porta+" "+hook);
+    return;
+  }else{
+    Serial.println("Enviando dados ao servidor "+ip+":"+porta+" "+hook);
+  
+    client.print(String("POST ") + hook + " HTTP/1.1\r\n" +
+                 "Host: " + ip + "\r\n" +
+                 "User-Agent: MICROCONTROLADOR\r\n" +
+                 "Connection: close\r\n\r\n");
+                 "Api-key: teste";
+                 
+    Serial.println("Enviando dados ao servidor");
+    while (client.connected()) {
+      String line = client.readStringUntil('\n');
+      if (line == "\r") {
+        break;
+      }
+    }
+    String line = client.readStringUntil('\n');
+    Serial.println("RETORNO SERVER: "+line);
+  }
+  
+}
+
 void Controlador_resetaControlador(){
   resetFunc();
 }
