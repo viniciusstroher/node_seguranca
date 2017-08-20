@@ -81,8 +81,7 @@ void setup() {
     //SETAR PINAGEM DE SENSORES AQUI
     pinMode(PINO_SENSOR_MAGNETICO, INPUT_PULLUP);
     pinMode(PINO_SENSOR_PIR, INPUT_PULLUP);
-    digitalWrite(PINO_SENSOR_MAGNETICO,LOW);
-    digitalWrite(PINO_SENSOR_PIR,LOW);
+   
     
   }
 
@@ -101,11 +100,11 @@ void loop() {
 }
 
 void capturaSensores(){
-  bool estadoSensorMagnetico = digitalRead(PINO_SENSOR_MAGNETICO);
-  bool estadoSensorPir       = digitalRead(PINO_SENSOR_PIR);
+  int estadoSensorMagnetico = digitalRead(PINO_SENSOR_MAGNETICO);
+  int estadoSensorPir       = digitalRead(PINO_SENSOR_PIR);
     
-  Serial.println("Porta aberta : "+estadoSensorMagnetico);
-  Serial.println("Movimentacao : "+estadoSensorPir);
+  Serial.println("Porta aberta : "+String(estadoSensorMagnetico));
+  Serial.println("Movimentacao : "+String(estadoSensorPir));
 
     
   //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
