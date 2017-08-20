@@ -66,23 +66,17 @@ void Controlador_enviaDadosServer(String ip,String porta,String senhaApi,String 
     return;
   }else{
     Serial.println("Enviando dados ao servidor "+ip+":"+porta+" "+hook);
-  
-    client.print(String("POST ") + hook + " HTTP/1.1\r\n" +
+    String httpPost = "POST " + hook + " HTTP/1.1\r\n" +
                  "Host: " + ip + "\r\n" +
                  "User-Agent: MICROCONTROLADOR\r\n" +
-                 "Connection: close\r\n\r\n"
-                 "api-key: "+senhaApi+"\r\n"+
+                 "Connection: close\r\n"
+                 "Api-Key: "+senhaApi+"\r\n"+
                  "Content-Type: application/json\r\n"+
-                 "Content-Length: "+data.length()+"\r\n"+
-                  data);
-                  
-    Serial.println(String("POST ") + hook + " HTTP/1.1\r\n" +
-                 "Host: " + ip + "\r\n" +
-                 "User-Agent: MICROCONTROLADOR\r\n" +
-                 "Connection: close\r\n\r\n"
-                 "api-key: "+senhaApi+"\r\n"+
-                 "Content-Length: "+data.length()+"\r\n"+
-                  data);
+                 "Content-Length: "+data.length()+"\r\n\r\n"+
+                  data;
+    client.print(httpPost);
+               
+    Serial.println(httpPost);
     Serial.println("Recebendo dados ao servidor");
     while (client.connected()) {
       String line = client.readStringUntil('\n');
