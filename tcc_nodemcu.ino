@@ -93,7 +93,7 @@ void loop() {
   }
 
   if(operacao.equals("O")){
-    
+    capturaSensores();
   }
 }
 
