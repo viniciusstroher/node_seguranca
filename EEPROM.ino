@@ -1,8 +1,8 @@
 #include <EEPROM.h>
 #define eepromMax 250
 
-//MODO DE OPERACAO (A-ADMIN, O-OPERACAO)#SSID_WIFI#SENHA_WIFI#IP#PORTA#
-#define configPadrao "#A#Venizao#venizao123#testesmart.ddns.net#10000#0"
+//MODO DE OPERACAO (A-ADMIN, O-OPERACAO)#SSID_WIFI#SENHA_WIFI#IP#PORTA#senhaApi
+#define configPadrao "#A#Venizao#venizao123#testesmart.ddns.net#10000#teste#0"
 void EEPROM_limpaEEPROM(){
   EEPROM.begin(512);
 

@@ -12,7 +12,7 @@ String EEPROM_getValueEEPROM(int hash);
 
 //ADMIN
 ESP8266WebServer server(80);
-WiFiClientSecure client;
+WiFiClient client;
 //CONTROLADOR
 void Controlador_modoAdmin();
 void Controlador_resetaControlador();
@@ -22,7 +22,11 @@ void Controlador_enviaDadosServer(String ip,String porta,String hook,String data
 //VARIAVEIS
 int    eepromMax         = 250;
 String operacao;
-
+String ssid;
+String pass;
+String ip;
+String porta;
+String senhaApi;
 //PINOS RESET
 int  PINO_RESET = 16;       //D0
 int  PINO_FUNCAO_RESET = 5; //D1
@@ -53,16 +57,17 @@ void setup() {
   
   if(operacao.equals("O")){
     Serial.println("MODO OPERACAO ATIVADO");
-    String ssid     = EEPROM_getValueEEPROM(2); 
+    ssid     = EEPROM_getValueEEPROM(2); 
     delay(10);
-    String pass     = EEPROM_getValueEEPROM(3); 
+    pass     = EEPROM_getValueEEPROM(3); 
     delay(10);
-    String ip       = EEPROM_getValueEEPROM(4);  
+    ip       = EEPROM_getValueEEPROM(4);  
     delay(10);
-    String porta    = EEPROM_getValueEEPROM(5);  
+    porta    = EEPROM_getValueEEPROM(5);  
     delay(10);
-    Serial.println("SSID: "+ssid+" Pass: "+pass+" IP:"+ip+" Porta: "+porta);
-
+    senhaApi = EEPROM_getValueEEPROM(6);  
+    delay(10);
+    Serial.println("SSID: "+ssid+" Pass: "+pass+" IP:"+ip+" Porta: "+porta+" Senha api: "+senhaApi);
     
     String config = String(EEPROM_getEEPROM());
     Serial.println(config);
@@ -80,7 +85,7 @@ void loop() {
   }
 
   if(operacao.equals("O")){
-    Controlador_enviaDadosServer(ip,porta,"/teste","{alerta:1}");
+    Controlador_enviaDadosServer(ip,porta,senhaApi,"/teste","{alerta:1}");
     delay(5000);
   }
 }
@@ -92,7 +97,7 @@ void fazerReset(){
      //LIGADOR O PINO D0 NO 3V com um botao e ligado 10k no ground
      EEPROM_limpaEEPROM();
      delay(100);
-     EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#testesmart.ddns.net#10000#0");
+     EEPROM_gravaNovaStringEEPROM("#A#Venizao#venizao123#testesmart.ddns.net#10000#teste#0");
      delay(100);
      Serial.println("Resetando configs do controlador.");
      Controlador_resetaControlador();
