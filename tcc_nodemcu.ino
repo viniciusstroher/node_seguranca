@@ -81,7 +81,7 @@ void setup() {
     //SETAR PINAGEM DE SENSORES AQUI
     pinMode(PINO_SENSOR_MAGNETICO, INPUT_PULLUP);
     pinMode(PINO_SENSOR_PIR, INPUT_PULLUP);
-   
+    digitalWrite(PINO_SENSOR_MAGNETICO,HIGH);
     
   }
 
@@ -108,13 +108,13 @@ void capturaSensores(){
 
     
   //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
-  if(estadoSensorMagnetico){
+  if(estadoSensorMagnetico == 0){
      Controlador_enviaDadosServer(ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
      delay(5000);
   }
 
   //VERIFICA SE O SENSOR PIR ESTA CAPTANDO MOVIMENTO
-  if(estadoSensorPir){
+  if(estadoSensorPir == 0){
      Controlador_enviaDadosServer(ip,porta,senhaApi,"/pir","{\"pir\":true}");  
      delay(5000);
   }
