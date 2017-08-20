@@ -108,12 +108,14 @@ void capturaSensores(){
 
     
   //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
+  //NO MEU CASO O zero significa o circuito aberto
   if(estadoSensorMagnetico == 0){
      Controlador_enviaDadosServer(ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
      delay(5000);
   }
 
   //VERIFICA SE O SENSOR PIR ESTA CAPTANDO MOVIMENTO
+  //NO MEU CASO O zero significa o presença no pir
   if(estadoSensorPir == 0){
      Controlador_enviaDadosServer(ip,porta,senhaApi,"/pir","{\"pir\":true}");  
      delay(5000);
