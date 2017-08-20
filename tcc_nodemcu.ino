@@ -85,7 +85,7 @@ void loop() {
   }
 
   if(operacao.equals("O")){
-    Controlador_enviaDadosServer(ip,porta,senhaApi,"/teste","{alerta:1}");
+    Controlador_enviaDadosServer(ip,porta,senhaApi,"/teste","{\"alerta\":1}");
     delay(5000);
   }
 }
