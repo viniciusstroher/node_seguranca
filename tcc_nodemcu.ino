@@ -27,9 +27,14 @@ String pass;
 String ip;
 String porta;
 String senhaApi;
+
 //PINOS RESET
 int  PINO_RESET = 16;       //D0
-int  PINO_FUNCAO_RESET = 5; //D1
+
+//PINOS SENSORES
+int PINO_SENSOR_MAGNETICO = 5;
+int PINO_SENSOR_PIR       = 4;
+
 
 void setup() {
   pinMode(PINO_RESET, INPUT);
@@ -51,6 +56,8 @@ void setup() {
 
   if(operacao.equals("A")){
     Serial.println("MODO ADMIN ATIVADO");
+    
+    //CONFIGURA MODO ADMIN
     Controlador_modoAdmin();
 
   }
@@ -68,11 +75,13 @@ void setup() {
     senhaApi = EEPROM_getValueEEPROM(6);  
     delay(10);
     Serial.println("SSID: "+ssid+" Pass: "+pass+" IP:"+ip+" Porta: "+porta+" Senha api: "+senhaApi);
-    
-    String config = String(EEPROM_getEEPROM());
-    Serial.println(config);
+
+    //CONFIGURA MODO DE OPERACAO
     Controlador_modoOperacao(ssid,pass,ip,porta);
+    
     //SETAR PINAGEM DE SENSORES AQUI
+    pinMode(PINO_SENSOR_MAGNETICO, INPUT_PULLUP);
+    pinMode(PINO_SENSOR_PIR, INPUT_PULLUP);
   }
 
 }
@@ -85,8 +94,18 @@ void loop() {
   }
 
   if(operacao.equals("O")){
-    Controlador_enviaDadosServer(ip,porta,senhaApi,"/teste","{\"alerta\":1}");
-    delay(5000);
+    int estadoSensorMagnetico = digitalRead(PINO_SENSOR_MAGNETICO);
+    int estadoSensorPir       = digitalRead(PINO_SENSOR_PIR);
+    
+    Serial.println("Porta aberta?: "+estadoSensorMagnetico);
+    Serial.println("Movimentação?: "+estadoSensorPir);
+
+    
+    //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
+    if(estadoSensorMagnetico == 1){
+      Controlador_enviaDadosServer(ip,porta,senhaApi,"/porta_aberta","{\"alerta\":1}");  
+      delay(5000);
+    }
   }
 }
 
