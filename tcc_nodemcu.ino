@@ -20,6 +20,7 @@ void Controlador_enviaDadosServer(String ip,String porta,String hook,String data
 
 
 //VARIAVEIS
+String nomeControlador   = "Sistema de seguranca 1";
 int    eepromMax         = 250;
 String operacao;
 String ssid;
@@ -110,7 +111,7 @@ void capturaSensores(){
   //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
   //NO MEU CASO O zero significa o circuito aberto
   if(estadoSensorMagnetico == 0){
-     Controlador_enviaDadosServer(ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
+     Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
      delay(5000);
   }
 

@@ -60,7 +60,7 @@ void Controlador_modoOperacao(String ssid,String pass,String ip,String porta){
   
 }
 
-void Controlador_enviaDadosServer(String ip,String porta,String senhaApi,String hook,String data){
+void Controlador_enviaDadosServer(String nomeDoControlador,String ip,String porta,String senhaApi,String hook,String data){
   if (!client.connect(ip.c_str(), porta.toInt())) {
     Serial.println("Falha de conexao no servidor "+ip+":"+porta+" "+hook);
     return;
@@ -71,6 +71,7 @@ void Controlador_enviaDadosServer(String ip,String porta,String senhaApi,String 
                  "User-Agent: MICROCONTROLADOR\r\n" +
                  "Connection: close\r\n"
                  "Api-Key: "+senhaApi+"\r\n"+
+                 "agente:"+nomeDoControlador+"\n\r"+
                  "Content-Type: application/json\r\n"+
                  "Content-Length: "+data.length()+"\r\n\r\n"+
                   data;
