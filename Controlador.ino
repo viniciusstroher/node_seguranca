@@ -71,7 +71,7 @@ void Controlador_enviaDadosServer(String nomeDoControlador,String ip,String port
                  "User-Agent: MICROCONTROLADOR\r\n" +
                  "Connection: close\r\n"
                  "Api-Key: "+senhaApi+"\r\n"+
-                 "agente:"+nomeDoControlador+"\n\r"+
+                 "agente:"+nomeDoControlador+"\r\n"+
                  "Content-Type: application/json\r\n"+
                  "Content-Length: "+data.length()+"\r\n\r\n"+
                   data;
