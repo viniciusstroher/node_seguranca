@@ -20,7 +20,7 @@ void Controlador_enviaDadosServer(String ip,String porta,String hook,String data
 
 
 //VARIAVEIS
-String nomeControlador   = "Sistema de seguranca 1";
+String nomeControlador   = "SYS_SEG_1";
 int    eepromMax         = 250;
 String operacao;
 String ssid;
