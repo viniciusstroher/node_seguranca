@@ -130,7 +130,7 @@ void capturaSensores(){
        Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
     }
     delay(5000);
-  }
+  } 
 }
 void fazerReset(){
   int fazerReset = digitalRead(PINO_RESET);
