@@ -113,7 +113,7 @@ void capturaSensores(){
     
   //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
   //NO MEU CASO O zero significa o circuito aberto
-  if(estadoSensorMagnetico == 1 || estadoSensorPir == 0){  
+  if(estadoSensorMagnetico == 1 || estadoSensorPir == 1){  
     if(estadoPorta != estadoSensorMagnetico){
        estadoPorta = estadoSensorMagnetico;
        if(estadoPorta == 1){
