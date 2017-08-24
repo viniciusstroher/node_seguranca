@@ -20,6 +20,7 @@ void Controlador_enviaDadosServer(String ip,String porta,String hook,String data
 
 
 //VARIAVEIS
+int    estadoPorta       = 1;
 String nomeControlador   = "SYS_SEG_1";
 int    eepromMax         = 250;
 String operacao;
@@ -110,16 +111,23 @@ void capturaSensores(){
     
   //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
   //NO MEU CASO O zero significa o circuito aberto
-  if(estadoSensorMagnetico == 0){
-     Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
-     delay(5000);
-  }
-
-  //VERIFICA SE O SENSOR PIR ESTA CAPTANDO MOVIMENTO
-  //NO MEU CASO O zero significa o presença no pir
-  if(estadoSensorPir == 0){
-     Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
-     delay(5000);
+  if(estadoSensorMagnetico == 0 || estadoSensorPir == 0){
+    if(estadoPorta != estadoSensorMagnetico){
+       estadoPorta = estadoSensorMagnetico;
+       if(estadoPorta == 0){
+          Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
+       }else{
+         Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":false}");  
+       }
+       Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
+    }
+  
+    //VERIFICA SE O SENSOR PIR ESTA CAPTANDO MOVIMENTO
+    //NO MEU CASO O zero significa o presença no pir
+    if(estadoPorta == 0){
+       Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
+    }
+    delay(5000);
   }
 }
 void fazerReset(){
