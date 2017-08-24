@@ -84,7 +84,7 @@ void setup() {
     pinMode(PINO_SENSOR_MAGNETICO, INPUT_PULLUP);
     pinMode(PINO_SENSOR_PIR, INPUT_PULLUP);
     digitalWrite(PINO_SENSOR_MAGNETICO,HIGH);
-    
+    estadoPorta = digitalRead(PINO_SENSOR_MAGNETICO);
   }
 
 }
