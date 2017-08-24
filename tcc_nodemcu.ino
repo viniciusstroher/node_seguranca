@@ -84,6 +84,8 @@ void setup() {
     pinMode(PINO_SENSOR_MAGNETICO, INPUT_PULLUP);
     pinMode(PINO_SENSOR_PIR, INPUT_PULLUP);
     digitalWrite(PINO_SENSOR_MAGNETICO,HIGH);
+    digitalWrite(PINO_SENSOR_PIR,HIGH);
+    
     estadoPorta = digitalRead(PINO_SENSOR_MAGNETICO);
   }
 
@@ -114,17 +116,17 @@ void capturaSensores(){
   if(estadoSensorMagnetico == 1 || estadoSensorPir == 0){  
     if(estadoPorta != estadoSensorMagnetico){
        estadoPorta = estadoSensorMagnetico;
-       if(estadoPorta == 0){
-          Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
+       if(estadoPorta == 1){
+          Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
        }else{
-         Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":false}");  
+          Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":false}");  
        }
-       Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
+      
     }
   
     //VERIFICA SE O SENSOR PIR ESTA CAPTANDO MOVIMENTO
     //NO MEU CASO O zero significa o presença no pir
-    if(estadoPorta == 0){
+    if(estadoSensorPir == 0){
        Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
     }
     delay(5000);
