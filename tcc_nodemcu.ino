@@ -126,7 +126,7 @@ void capturaSensores(){
   
     //VERIFICA SE O SENSOR PIR ESTA CAPTANDO MOVIMENTO
     //NO MEU CASO O zero significa o presença no pir
-    if(estadoSensorPir == 0){
+    if(estadoSensorPir == 1){
        Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
     }
     delay(5000);
