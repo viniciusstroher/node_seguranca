@@ -45,7 +45,8 @@ void Controlador_modoAdmin(){
 }
  
 void Controlador_modoOperacao(String ssid,String pass,String ip,String porta){
-
+  //remover se der problema
+  WiFi.mode(WIFI_STA);
   Serial.println("MODO OPERAÇÃO ATIVADO");
   //Configs da EEPROM
    WiFi.begin(ssid.c_str(), pass.c_str());
