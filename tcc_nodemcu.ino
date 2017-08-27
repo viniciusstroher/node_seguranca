@@ -48,13 +48,7 @@ void setup() {
   operacao        = EEPROM_getValueEEPROM(1); 
   delay(10);
   Serial.println("Operacao: "+operacao);
-  /*
-   *  
-  
-  delay(10);
-  String porta    = EEPROM_getValueEEPROM(5); 
-  Serial.println(" SSID: "+ssid+" PASSWORD: "+pass+" IP: "+ip+" Porta: "+porta);*/
-
+ 
   if(operacao.equals("A")){
     Serial.println("MODO ADMIN ATIVADO");
     
