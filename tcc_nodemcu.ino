@@ -2,6 +2,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h> 
 #include <ESP8266WebServer.h>
+#include   avr/wdt.h 
 
 //EEPROM
 void   EEPROM_limpaEEPROM();
@@ -39,6 +40,7 @@ int PINO_SENSOR_PIR       = 4;
 
 
 void setup() {
+  wdt_enable(WDTO_8S);
   pinMode(PINO_RESET, INPUT);
   digitalWrite(PINO_RESET, LOW);
   Serial.begin(115200);
@@ -95,6 +97,7 @@ void loop() {
   if(operacao.equals("O")){
     capturaSensores();
   }
+  wdt_reset();
 }
 
 void capturaSensores(){
