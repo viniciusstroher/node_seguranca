@@ -107,7 +107,8 @@ void capturaSensores(){
     
   //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
   //NO MEU CASO O zero significa o circuito aberto
-  if(estadoSensorMagnetico == 1 || estadoSensorPir == 1){  
+  //if(estadoSensorMagnetico == 1 || estadoSensorPir == 1){  
+  if((estadoPorta != estadoSensorMagnetico) || estadoSensorPir == 1){  
     if(estadoPorta != estadoSensorMagnetico){
        estadoPorta = estadoSensorMagnetico;
        if(estadoPorta == 1){
@@ -124,7 +125,9 @@ void capturaSensores(){
        Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
     }
     delay(5000);
-  } 
+  }else{
+    delay(1000); 
+  }
 }
 void fazerReset(){
   int fazerReset = digitalRead(PINO_RESET);
