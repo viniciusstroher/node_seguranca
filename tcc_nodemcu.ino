@@ -2,7 +2,6 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h> 
 #include <ESP8266WebServer.h>
-#include   avr/wdt.h 
 
 //EEPROM
 void   EEPROM_limpaEEPROM();
@@ -127,7 +126,7 @@ void capturaSensores(){
     if(estadoSensorPir == 1){
        Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
     }
-    delay(5000);
+    delay(3000);
   }else{
     delay(1000); 
   }
