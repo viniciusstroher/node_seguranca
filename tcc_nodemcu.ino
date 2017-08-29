@@ -2,7 +2,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h> 
 #include <ESP8266WebServer.h>
-#include <MemoryFree.h>
+
 //EEPROM
 void   EEPROM_limpaEEPROM();
 void   EEPROM_gravaNovaStringEEPROM(String novaEEPROM);
@@ -96,7 +96,7 @@ void loop() {
   if(operacao.equals("O")){
     capturaSensores();
   }
-  freeMemory();
+
   wdt_reset();
 }
 
