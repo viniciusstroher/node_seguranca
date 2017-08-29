@@ -80,12 +80,14 @@ void Controlador_enviaDadosServer(String nomeDoControlador,String ip,String port
                
     Serial.println(httpPost);
     Serial.println("Recebendo dados ao servidor");
-    while (client.connected()) {
+    /*while (client.connected()) {
       String line = client.readStringUntil('\n');
       if (line == "\r") {
         break;
       }
-    }
+    }*/
+    client.connected();
+    
     String line = client.readStringUntil('\n');
     client.stop();
     Serial.println("RETORNO SERVER: "+line);
