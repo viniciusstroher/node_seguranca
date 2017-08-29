@@ -87,6 +87,7 @@ void Controlador_enviaDadosServer(String nomeDoControlador,String ip,String port
       }
     }
     String line = client.readStringUntil('\n');
+    client.stop();
     Serial.println("RETORNO SERVER: "+line);
   }
   
