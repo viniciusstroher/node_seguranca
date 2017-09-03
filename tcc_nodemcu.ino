@@ -1,6 +1,6 @@
 #include <EEPROM.h>
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h> 
+#include <WiFiClient.h>  
 #include <ESP8266WebServer.h>
 
 //EEPROM
@@ -31,6 +31,9 @@ String porta;
 String senhaApi;
 
 //PINOS RESET
+int  enviar_estado     = 0;
+int  enviar_estado_max = 200;
+
 int  PINO_RESET = 16;       //D0
 
 //PINOS SENSORES
@@ -127,8 +130,15 @@ void capturaSensores(){
     if(estadoSensorPir == 1){
        Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/pir","{\"pir\":true}");  
     }
+    enviar_estado = 0;
     delay(3000);
   }else{
+    enviar_estado++;
+    if(enviar_estado == enviar_estado_max){
+      enviar_estado=0;
+      Serial.prinln("Enviando keep-alive de porta");
+      Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
+    }
     delay(1000); 
   }
 }
