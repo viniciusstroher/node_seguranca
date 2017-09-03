@@ -119,7 +119,9 @@ void capturaSensores() {
       estadoPorta = estadoSensorMagnetico;
       if (estadoPorta == 1) {
         Controlador_enviaDadosServer(nomeControlador, ip, porta, senhaApi, "/porta_aberta", "{\"magnetico\":true}");
+        enviar_estado = 0;
       } else {
+        enviar_estado = 0;
         Controlador_enviaDadosServer(nomeControlador, ip, porta, senhaApi, "/porta_aberta", "{\"magnetico\":false}");
       }
 
@@ -130,7 +132,7 @@ void capturaSensores() {
     if (estadoSensorPir == 1) {
       Controlador_enviaDadosServer(nomeControlador, ip, porta, senhaApi, "/pir", "{\"pir\":true}");
     }
-    enviar_estado = 0;
+    
     delay(3000);
   } else {
     enviar_estado++;
