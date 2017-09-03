@@ -110,7 +110,7 @@ void capturaSensores() {
   Serial.println("Porta aberta : " + String(estadoSensorMagnetico));
   Serial.println("Movimentacao : " + String(estadoSensorPir));
 
-  Serial.println("Idle 200: " + String(enviar_estado));
+  Serial.println("Idle "+String(enviar_estado_max)+": " + String(enviar_estado));
   //VERIFICA SE O SENSOR DA PORTA ESTA ABERTO
   //NO MEU CASO O zero significa o circuito aberto
   //if(estadoSensorMagnetico == 1 || estadoSensorPir == 1){
