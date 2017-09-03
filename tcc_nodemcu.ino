@@ -136,7 +136,7 @@ void capturaSensores(){
     enviar_estado++;
     if(enviar_estado == enviar_estado_max){
       enviar_estado=0;
-      Serial.prinln("Enviando keep-alive de porta");
+      Serial.println("Enviando keep-alive de porta");
       Controlador_enviaDadosServer(nomeControlador,ip,porta,senhaApi,"/porta_aberta","{\"magnetico\":true}");  
     }
     delay(1000); 
