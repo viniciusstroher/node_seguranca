@@ -32,7 +32,7 @@ String senhaApi;
 
 //PINOS RESET
 int  enviar_estado     = 0;
-int  enviar_estado_max = 100;
+int  enviar_estado_max = 30;
 
 int  PINO_RESET = 16;       //D0
 
